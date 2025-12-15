@@ -92,7 +92,7 @@ This deployment approach ensures:
 
 ## ⚠️ Model Limitations
 
-- The sentiment model is trained **only on English-language IMDb reviews**
+- The sentiment model is trained **only on English-language reviews**
 - Non-English words or unseen vocabulary terms are ignored during prediction
 - Neutral or mixed wording may reduce confidence scores
 
