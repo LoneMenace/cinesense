@@ -1,4 +1,4 @@
-# 🎬 CineSense – Explainable Movie Review Sentiment Analysis App
+# 🎬 CineSense – Movie Review Sentiment Analysis App
 
 **CineSense** is a cloud-deployed web application that analyzes movie reviews to determine sentiment
 with full numerical transparency. Unlike typical sentiment analyzers, CineSense exposes the
