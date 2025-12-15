@@ -89,7 +89,7 @@ This setup ensures consistent runtime behavior and reproducible deployments.
 
 ## ⚠️ Model Constraints
 
-- The model is trained only on **English-language IMDb reviews**
+- The model is trained only on **English-language reviews**
 - Words not present in the training vocabulary are ignored
 - Mixed or neutral input may result in lower confidence scores
 
