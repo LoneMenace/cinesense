@@ -1,54 +1,59 @@
 # 🎬 CineSense – Movie Review Sentiment Analysis App
 
-CineSense is a web application that analyzes movie reviews to determine sentiment and confidence,
-while also exposing the exact numerical reasoning behind each prediction.
+**CineSense** is a cloud-deployed web application that analyzes movie reviews to determine sentiment
+with full numerical transparency. Unlike typical sentiment analyzers, CineSense exposes the
+**exact words, learned weights, and mathematical calculations** used by the model for every prediction.
 
 The application is containerized using Docker and deployed on an AWS EC2 instance.
 
 ---
 
-## ✨ Features
+## 🚀 Key Features
 
-- 🧪 **Sentence-level sentiment analysis** (Positive / Negative)
-- 📊 **Confidence scoring** based on model probability
-- 🔍 **Word-level explainability**
-  - Recognized words from the trained vocabulary
+- **Sentence-level sentiment analysis** (Positive / Negative)
+- **Model-derived confidence scoring** 
+- **Word-level explainability**
+  - Exact words recognized from the trained vocabulary
   - Learned weight contribution of each word
-- 🧮 **Numerical decision breakdown**
+- **Numerical decision breakdown**
   - Sum of word weights
-  - Model intercept
+  - Intercept (model bias)
   - Sigmoid probability calculation
-- 💾 **Persistent storage** using SQLite
-- 🗑️ **Per-review deletion** directly from the UI
-- 📈 **Global model insights**
+- **Persistent review storage** using SQLite
+- **Per-review deletion** from the UI
+- **Global model insights**
   - Strongest positive and negative indicators learned during training
-
+- **Explicit handling of English-only input**
+  
 ---
 
-## 🧠 How Sentiment Is Computed
+## 🧠 How Sentiment Is Determined
 
-1. Input text is vectorized using the trained IMDb vocabulary  
+1. Input text is vectorized using the vocabulary learned from the IMDb dataset  
 2. Only words present in the training vocabulary are retained  
 3. Each retained word contributes a learned numerical weight  
-4. Word weights are summed with the model intercept  
-5. The final score determines sentiment polarity  
+4. All word weights are summed together with the model intercept  
+5. The resulting score determines the sentiment direction  
 
-- Positive score → **Positive sentiment**  
-- Negative score → **Negative sentiment**
+A positive final score results in **Positive** sentiment,  
+while a negative final score results in **Negative** sentiment.
 
 ---
 
 ## 📊 How Confidence Is Calculated
 
-The final score is converted into a probability using a sigmoid function:
+Confidence is derived **directly from the model’s probability output**.
+
+The model applies a **sigmoid function** to the final sentence score:
 
 Probability = 1 / (1 + e^(-score))
 
 
-- If the prediction is **Positive**, confidence = positive probability  
-- If the prediction is **Negative**, confidence = 1 − positive probability  
+- If the sentence is predicted **Positive**, confidence = Positive probability  
+- If the sentence is predicted **Negative**, confidence = 1 − Positive probability  
 
-Stronger sentiment signals produce probabilities closer to 0% or 100%, resulting in higher confidence.
+Higher absolute scores produce probabilities closer to 0% or 100%, indicating stronger confidence.
+Sentences with mixed sentiment signals typically result in lower confidence values.
 
 ---
 
@@ -57,10 +62,10 @@ Stronger sentiment signals produce probabilities closer to 0% or 100%, resulting
 **Application**
 - Python
 - Streamlit
-- scikit-learn
+- scikit-learn (Logistic Regression NLP model)
 
-**Data**
-- SQLite (persistent local storage)
+**Data & Persistence**
+- SQLite (local persistent storage)
 
 **Cloud & Deployment**
 - Docker (containerized runtime)
@@ -87,8 +92,6 @@ This setup ensures consistent runtime behavior and reproducible deployments.
 - The model is trained only on **English-language IMDb reviews**
 - Words not present in the training vocabulary are ignored
 - Mixed or neutral input may result in lower confidence scores
-
-These behaviors are visible in the application output.
 
 ---
 
